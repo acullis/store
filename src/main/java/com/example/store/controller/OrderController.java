@@ -1,6 +1,5 @@
 package com.example.store.controller;
 
-import com.example.store.dto.CustomerDTO;
 import com.example.store.dto.OrderDTO;
 import com.example.store.entity.Order;
 import com.example.store.mapper.OrderMapper;
@@ -12,7 +11,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/order")

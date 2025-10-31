@@ -14,8 +14,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.Optional.empty;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -61,5 +64,24 @@ class CustomerControllerTests {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$..name").value("John Doe"));
         ;
+    }
+
+    @Test
+    void testGetCustomerSearch() throws Exception {
+        when(customerRepository.searchByNameSubstring("Jo")).thenReturn(List.of(customer));
+
+        mockMvc.perform(get("/customer/Jo"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$..name").value("John Doe"));
+    }
+
+    @Test
+    void testGetCustomerSearchNotFound() throws Exception {
+        when(customerRepository.searchByNameSubstring("Xx")).thenReturn(new ArrayList<>());
+
+        mockMvc.perform(get("/customer/Xx"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$").isArray())           // ensures it's an array
+                .andExpect(jsonPath("$").isEmpty());          // checks the array is empty
     }
 }

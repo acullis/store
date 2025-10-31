@@ -15,36 +15,6 @@ servers:
   - url: 'http://localhost:8080'
     description: dev
 paths:
-  /order/:
-    get:
-      summary: Get Order by id
-      deprecated: false
-      description: Get order by id
-      operationId: getOrder
-      tags:
-        - store
-      parameters:
-        - name: id
-          in: query
-          description: ''
-          required: false
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                    format: int64
-                  descriptioon:
-                    type: string
-          headers: {}
-      security: []
   /order:
     get:
       summary: Get Orders
@@ -81,6 +51,36 @@ paths:
                   format: int64
                 descriptioon:
                   type: string
+  /order/:
+    get:
+      summary: Get Order by id
+      deprecated: false
+      description: Get order by id
+      operationId: getOrder
+      tags:
+        - store
+      parameters:
+        - name: id
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    format: int64
+                  descriptioon:
+                    type: string
+          headers: {}
+      security: []
   /customer:
     get:
       summary: Get Customers
@@ -117,6 +117,33 @@ paths:
                   format: int64
                 name:
                   type: string
+  /customer/:
+    get:
+      summary: Get Customers By Name
+      deprecated: false
+      description: Get Customers By Name
+      operationId: getCustomers
+      tags:
+        - store
+      parameters:
+        - name: subString
+          in: query
+          description: ''
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+          headers: { }
+      security: [ ]
+
   /products:
     get:
       summary: Get Products
