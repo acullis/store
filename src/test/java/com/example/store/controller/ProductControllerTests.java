@@ -72,17 +72,14 @@ class ProductControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(product)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.description").value("Product Test"))
-        ;
+                .andExpect(jsonPath("$.description").value("Product Test"));
     }
 
     @Test
     void testGetProducts() throws Exception {
         when(productRepository.findAll()).thenReturn(List.of(product));
 
-        mockMvc.perform(get("/products"))
-                .andExpect(status().isOk())
-        ;
+        mockMvc.perform(get("/products")).andExpect(status().isOk());
     }
 
     @Test
@@ -91,7 +88,6 @@ class ProductControllerTests {
 
         mockMvc.perform(get("/products/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$..description").value("Product Test"))
-        ;
+                .andExpect(jsonPath("$..description").value("Product Test"));
     }
 }
