@@ -29,7 +29,8 @@ public class OrderController {
     public OrderDTO getOrder(@PathVariable("idString") String idString) {
         try {
             long idLong = Long.parseLong(idString);
-            return orderRepository.findById(idLong)
+            return orderRepository
+                    .findById(idLong)
                     .map(orderMapper::orderToOrderDTO)
                     .orElse(null);
         } catch (NumberFormatException e) {

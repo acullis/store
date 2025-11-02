@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3-product
+      author: andrew.cullis@securitease.com
+      changes:
+        - sqlFile:
+            path: db/changelog/product.sql
